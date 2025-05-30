@@ -35,7 +35,9 @@ int main (){
    
     char repetir;
 
-    int totalCoincidencias = 0;
+    char coincidencias[20];
+
+    int totalCoincidencias;
 
 //APERTURA DE ARCHIVO: MODO ESCRITURA (CREA EL FICHERO)
     ofstream Archivo1("C:/Users/PC/Desktop/Proyecto1_Programacion2/texto.txt", ios::out);
@@ -44,11 +46,7 @@ int main (){
         cout<<"no se pudo abrir el Archivo."<<endl;
         cout<<"---------------------------\n"<<endl;
     exit(1);
-    } else {
-        cout<<"[Archivo abierto correctamente para Escritura]"<<endl;
-        cout<<"[--------------------------------------------]\n"<<endl;
-    }
-
+    } 
 
 do{
 
@@ -63,18 +61,17 @@ do{
     getline(cin,texto,'\n');
 
 
-    cout<<"\n2. Seleccione el color para el texto (Escriba el nombre):\n"
-    <<"- Negro\n"
-    <<"- Rojo\n"
-    <<"- Verde\n"
-    <<"- Amarillo\n"
-    <<"- Azul\n"
-    <<"- Magenta\n"
-    <<"- Cyan\n"<<endl;
+    cout<<"\n2. Seleccione el color para el texto (Escriba el nombre en MAYUSCULA):\n"
+    <<"- NEGRO\n"
+    <<"- ROJO\n"
+    <<"- VERDE\n"
+    <<"- AMARILLO\n"
+    <<"- AZUL\n"
+    <<"- MAGENTA\n"
+    <<"- CYAN\n"<<endl;
     getline(cin,color,'\n');
 
-   
-    cout<<"\n3. Seleccione la tipografia (Escriba el nombre):\n"
+    cout<<"\n3. Seleccione la tipografia (Escriba el nombre en MAYUSCULA):\n"
     <<"- BOLD\n"
     <<"- DIM\n"
     <<"- ITALIC\n"
@@ -83,6 +80,9 @@ do{
     <<"- HIDDEN\n"
     <<"- STRIKETHROUGH\n"<<endl;
     getline(cin,tipografia,'\n');
+
+    color = toLowerString(color);
+    tipografia = toLowerString(tipografia);
 
 //ASIGNACIÓN DEL COLOR DEL TEXTO
     if (color == "negro") {
@@ -99,32 +99,47 @@ do{
         codecolor = MAGENTA;
     } else if (color == "cyan"){
         codecolor = CYAN;
+    } else {
+        cout<<"COLOR INVALIDO";
     }
 
-
 //ASIGNACIÓN DE LA TIPOGRAFIA DEL TEXTO
-    if (tipografia == "BOLD") {
+    if (tipografia == "bold") {
     codetype = BOLD;
-    } else if (tipografia == "DIM") {
+    } else if (tipografia == "dim") {
     codetype = DIM;
-    } else if (tipografia == "ITALIC") {
+    } else if (tipografia == "italic") {
     codetype = ITALIC;
-    } else if (tipografia == "UNDERLINE") {
+    } else if (tipografia == "underline") {
     codetype = UNDERLINE;
-    } else if (tipografia == "BLINK") {
+    } else if (tipografia == "blink") {
     codetype = BLINK;
-    } else if (tipografia == "HIDDEN"){
+    } else if (tipografia == "hidden"){
     codetype = HIDDEN;
-    } else if (tipografia == "STRIKETHROUGH"){
+    } else if (tipografia == "strikethrough"){
     codetype = STRIKETHROUGH;
-    } 
-
+    } else {
+        cout<<"TIPOGRAFIA INVALIDA";
+    }
 
     Archivo1<<codetype<<codecolor<<texto<<RESET<<endl;
 
+    string textolower = toLowerString(texto);
+    string coincidenciaslower = toLowerString(coincidencias);
+
+    cout<<"ingresa el caracter/palabra de la que buscas coincidencias: "<<endl;
+    cin>>coincidencias;
+    
+    Archivo1<<"\nlas coincidencias son: "<<coincidencias<<endl;
+
+    //TOTAL DE COINCIDENCIAS
+    Archivo1<<"Numero Total de coincidencias: "<<totalCoincidencias<<endl;
+
     cout<<"te gustaria cambiar el texto? (s/n): "<<endl;
+    cout<<"------------------------------------ "<<endl;
     cin>>repetir;
     cin.ignore();
+    cout<<"------------------------------------ "<<endl;
 
 }while(repetir == 's' || repetir == 'S');
 
@@ -137,10 +152,7 @@ if(Archivo2.fail()){
         cout<<"no se pudo abrir el Archivo"<<endl;
         cout<<"---------------------------\n"<<endl;
     exit(1);
-    } else {
-        cout<<"\n[Archivo abierto correctamente para Lectura]"<<endl;
-        cout<<"[------------------------------------------]\n"<<endl;
-    }
+    } 
 
     string texto_2;
     while(getline(Archivo2,texto_2)){
