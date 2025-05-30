@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include <cctype>
 
 /*|------------------------[MACROS PARA COLOREAR EL TEXTO EN EL FICHERO]---------------------|*/
 #define RESET        "\033[0m"
@@ -23,9 +24,18 @@
 
 using namespace std;
 
+string toLowerString(string str) {
+    for (int i = 0; i < str.length(); i++) {
+        str[i] = tolower(str[i]);
+    }
+    return str;
+}
+
 int main (){
    
     char repetir;
+
+    int totalCoincidencias = 0;
 
 //APERTURA DE ARCHIVO: MODO ESCRITURA (CREA EL FICHERO)
     ofstream Archivo1("C:/Users/PC/Desktop/Proyecto1_Programacion2/texto.txt", ios::out);
@@ -141,16 +151,3 @@ if(Archivo2.fail()){
 
 return 0;
 }
-
-/*
-Falta: 
-1. algoritmo para captar palabras y caracteres del texto generado.
-2. color solo al texto/caracter(es) resaltado.
-
-validaciones:
-- que el texto no este vacio en primera instancia.
-- que el texto no contenga numeros.
-- que los colores y tipografias (strings) sean solo los de la lista.
-- que reconozca entre mayusculas y minusculas entre los nombres de las listas.
-*/
-
